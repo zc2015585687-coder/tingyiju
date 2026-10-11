@@ -1,4 +1,4 @@
-const CACHE='tingyiju-shell-v1-7-training';
+const CACHE='tingyiju-shell-v1-8-jamo-toggle';
 const FILES=['./','./index.html','./style.css','./app.js','./core.js','./course.js','./live-course.js','./live-auto-timing.js','./bundle.js','./training-core.js','./training-data.js','./training-ui.js','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png'];
 self.addEventListener('install',e=>e.waitUntil((async()=>{const cache=await caches.open(CACHE);for(const file of FILES){const response=await fetch(new Request(new URL(file,self.registration.scope),{cache:'reload'}));if(!response.ok||response.redirected)throw Error('Offline shell unavailable');await cache.put(new URL(file,self.registration.scope).href,response);}await self.skipWaiting();})()));
 self.addEventListener('activate',e=>e.waitUntil((async()=>{for(const key of await caches.keys())if(key.startsWith('tingyiju-shell-')&&key!==CACHE)await caches.delete(key);await self.clients.claim();})()));
