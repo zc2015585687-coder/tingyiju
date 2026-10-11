@@ -1,16 +1,97 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#244fe5"><meta name="description" content="用喜欢的韩语歌，逐句听、读、理解。支持本地媒体、离线课程和学习进度。"><title>听一句 · 韩语歌学习</title><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23244fe5'/%3E%3Ctext x='32' y='45' font-size='43' text-anchor='middle' fill='white'%3E가%3C/text%3E%3C/svg%3E"><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="style.css"><script type="module" src="app.js"></script></head>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#244fe5">
+  <meta name="description" content="用喜欢的韩语歌，逐句听、读、理解。支持本地媒体、离线课程和学习进度。">
+  <title>听一句 · 韩语歌学习</title>
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
 <body>
-<header class="topbar"><a class="brand" href="./"><span class="brand-icon" lang="ko">가</span><span>听一句<small>韩语歌学习</small></span></a><div class="header-actions"><span id="storageBadge" class="badge">本机保存</span><button id="openLibrary">切换课程 / 备份</button></div></header>
-<main class="layout">
-<aside class="sidebar"><div class="song-meta"><span class="eyebrow">我的第一首歌</span><h1 id="songTitle" lang="ko">일과 이분의 일</h1><p id="songSubtitle">Two Two · 原唱学习稿</p><div class="progress-label"><span id="progressText">从第一句开始</span><span id="progressPercent">0%</span></div><progress id="courseProgress" value="0" max="100"></progress></div><div class="list-head"><h2>歌词目录</h2><label class="check"><input id="reviewOnly" type="checkbox">只看待复习</label></div><nav id="lineList" aria-label="歌词目录"></nav><p class="sidebar-note">重复歌词共享掌握状态，播放位置分别保存。</p></aside>
-<section class="workspace"><div class="workspace-head"><div><span class="eyebrow" id="sectionLabel">逐句学习</span><p id="linePosition">01 / 34</p></div><div class="segmented" aria-label="播放模式"><button id="learnMode" class="active" aria-pressed="true">逐句学</button><button id="fullMode" aria-pressed="false">完整听</button></div></div>
-<section class="media-box"><div id="mediaNotice"><strong>导入对应版本的录音</strong><p>导入手机或电脑里的音频／视频。文件仅保存在这台设备。</p></div><label class="button primary file-button">导入录音<input id="mediaInput" type="file" accept="audio/*,video/*"></label><p id="mediaStatus" class="muted">尚未导入录音 · 时间轴待校准</p><video id="media" controls playsinline preload="metadata" hidden></video></section>
-<article class="lesson-card"><div class="card-top"><span id="sectionChip" class="chip">主歌</span><button id="openEditor" class="text-button">编辑本句</button></div><p class="instruction">点一个韩文字，看它怎样拼起来</p><div id="koreanLine" class="korean-line" lang="ko">멀리서 널 보았을때</div><div id="jamoPanel" class="jamo-panel" hidden></div><div class="hint-controls"><label class="check"><input id="showPron" type="checkbox" checked>发音提示</label><label class="check"><input id="showZh" type="checkbox" checked>中文意思</label></div><section id="pronPanel" class="pron-panel"><span class="small-label">读音与变化</span><p id="pronText">멀리서：ㄹ 的连接；널 是 너를 的缩略形式。</p><p id="pronNote" class="muted">标准读法学习提示，实际唱法待录音核对。</p></section><section id="zhPanel" class="zh-panel"><span class="small-label">这句在说</span><p id="translation">当我远远看见你的时候。</p></section><details open class="explanation"><summary>词语与句子结构</summary><div id="vocabList"></div><p id="grammar"></p><p id="contentStatus" class="muted"></p></details><div class="mastery"><span class="small-label">这句，我已经…</span><div id="masteryButtons"><button data-skill="read" aria-pressed="false">会读了</button><button data-skill="meaning" aria-pressed="false">懂意思</button><button data-skill="listen" aria-pressed="false">能听懂</button></div></div></article>
-<section class="transport" aria-label="跟读播放器"><p id="playbackStatus" role="status">导入录音后，可设置本句起止时间。</p><div class="transport-buttons"><button id="prevLine" aria-label="上一句">上一句</button><button id="playLine" class="primary play">播放本句</button><button id="nextLine" aria-label="下一句">下一句</button></div><div class="play-settings"><label>速度<select id="speed"><option value="0.65">0.65×</option><option value="0.8">0.8×</option><option value="1" selected>1.0×</option></select></label><label>循环<select id="repeats"><option value="1">1 次</option><option value="3" selected>3 次</option><option value="5">5 次</option><option value="0">一直循环</option></select></label><label>跟读留白<select id="gap"><option value="0">不留白</option><option value="2">2 秒</option><option value="3" selected>3 秒</option><option value="5">5 秒</option></select></label></div><button id="openTiming" class="text-button">校准本句时间</button></section><footer class="footnote">讲解为学习初稿，可编辑。录音和进度留在本机；请定期导出备份。<span id="offlineStatus"></span></footer>
-</section></main>
-<dialog id="libraryDialog"><div class="dialog-head"><h2>课程与备份</h2><button data-close="libraryDialog" aria-label="关闭">关闭</button></div><div id="courseList"></div><p id="courseNotes" class="muted"></p><button id="applyLiveRefined" hidden>试用优化自动时间（保留手动设置）</button><button id="applyLiveLrc" hidden>更新 Live LRC 时间（保留手动设置）</button><hr><h3>带到另一台设备</h3><p>可导入含录音课程包，一次恢复课程和音频。进度单独导出；仅导出课程时需另行保留媒体。</p><div class="button-grid"><button id="exportCourse">导出课程</button><label class="button file-button">导入课程 / 课程包<input id="courseInput" type="file" accept=".json,application/json"></label><button id="exportBundle">导出含录音课程包</button><button id="exportProgress">导出进度</button><label class="button file-button">合并进度<input id="progressInput" type="file" accept=".json,application/json"></label></div><h3>离线与存储</h3><p id="storageInfo">正在读取存储状态…</p><button id="persistStorage">申请保留本机数据</button><h3>使用说明</h3><ol><li>导入对应版本的音频或视频。</li><li>在“校准本句时间”中标记开始和结束，或导入匹配的 SRT/LRC 字幕。</li><li>播放本句、循环跟读，按实际情况记录掌握程度。</li></ol><p class="muted">添加到桌面：安卓浏览器菜单中选择“安装应用”或“添加到主屏幕”。首次联网打开成功后，再检查离线状态。清除浏览器数据会删除本机资料。</p><p><a href="https://music.bugs.co.kr/track/57151" target="_blank" rel="noopener noreferrer">歌曲资料</a> · <a href="https://krdict.korean.go.kr/chn/mainAction" target="_blank" rel="noopener noreferrer">韩国语基础词典</a></p></dialog>
-<dialog id="editorDialog"><form id="editorForm"><div class="dialog-head"><h2>编辑本句</h2><button type="button" data-close="editorDialog">关闭</button></div><p class="muted">同一歌词的讲解会同步到重复句；时间点分别设置。</p><label>韩文原文<textarea id="editKorean" required maxlength="1000"></textarea></label><label>中文意思<textarea id="editZh" maxlength="3000"></textarea></label><label>发音提示<textarea id="editPron" maxlength="3000"></textarea></label><label>句子结构<textarea id="editGrammar" maxlength="5000"></textarea></label><label>词语说明（每行：词语 | 中文解释）<textarea id="editVocab" rows="5" maxlength="10000"></textarea></label><label class="check"><input id="editReviewed" type="checkbox">这句讲解我已核对</label><button class="primary" type="submit">保存讲解</button></form></dialog>
-<dialog id="timingDialog"><div class="dialog-head"><h2>校准播放时间</h2><button data-close="timingDialog">关闭</button></div><p id="timingLyric" lang="ko"></p><p>播放录音，在句子开始和结束时分别标记；也可以直接填写秒数。</p><div class="timing-preview"><button id="timingToggle">播放 / 暂停</button><span id="timingClock">00:00.0</span><label>定位录音<input id="timingSeek" type="range" min="0" max="1" step="0.05" value="0"></label></div><form id="timingForm"><div class="time-fields"><label>开始（秒）<input id="startTime" type="number" min="0" step="0.01" required><button id="captureStart" type="button">用当前时间</button></label><label>结束（秒）<input id="endTime" type="number" min="0" step="0.01" required><button id="captureEnd" type="button">用当前时间</button></label></div><button type="submit" class="primary">保存本句时间</button></form><hr><h3>导入整首字幕时间</h3><p>支持按歌词顺序匹配的 SRT 或 LRC。会先核对句数和文字，再替换时间；LRC 句尾按下一句起点估算，最后一行以录音末尾为结束；导入后仍须试听核对。</p><label class="button file-button">选择 SRT / LRC<input id="subtitleInput" type="file" accept=".srt,.lrc,text/plain"></label></dialog>
-<div id="toast" role="status" aria-live="polite" hidden></div>
-</body></html>
+  <header class="topbar">
+    <a class="brand" href="./"><span class="brand-icon" lang="ko">가</span><span>听一句<small>韩语歌学习</small></span></a>
+    <div class="header-actions"><span id="storageBadge" class="badge" role="status">本机保存</span><button id="openLibrary">课程 / 备份</button></div>
+  </header>
+  <main class="layout">
+    <aside class="sidebar">
+      <div class="song-meta">
+        <span class="eyebrow">我的韩语歌</span>
+        <h1 id="songTitle" lang="ko">일과 이분의 일</h1>
+        <p id="songSubtitle">Two Two · 原唱学习稿</p>
+        <div class="progress-label"><span id="progressText">从第一句开始</span><span id="progressPercent">0%</span></div>
+        <progress id="courseProgress" value="0" max="100" aria-label="本课程掌握进度"></progress>
+      </div>
+      <details id="lineDirectory" class="line-directory" open>
+        <summary>歌词目录<span id="directoryPosition">01 / 34</span></summary>
+        <div class="list-head"><h2>选择一句</h2><label class="check"><input id="reviewOnly" type="checkbox">只看待复习</label></div>
+        <nav id="lineList" aria-label="歌词目录"></nav>
+        <p class="sidebar-note">重复歌词共享掌握状态，播放位置分别保存。</p>
+      </details>
+    </aside>
+    <section class="workspace">
+      <div class="workspace-head">
+        <div class="line-heading"><span id="sectionLabel" class="eyebrow">逐句学习</span><p id="linePosition">01 / 34</p></div>
+        <div class="segmented" aria-label="播放模式"><button id="learnMode" class="active" aria-pressed="true">逐句学</button><button id="fullMode" aria-pressed="false">完整听</button></div>
+      </div>
+      <details id="mediaDetails" class="media-box" open>
+        <summary><span id="mediaSummary">导入对应版本的录音</span><span class="summary-hint">录音管理</span></summary>
+        <div class="media-content">
+          <div id="mediaNotice"><strong>导入音频或视频</strong><p>文件仅保存在这台设备。含录音 JSON 课程包请在“课程 / 备份”中导入。</p></div>
+          <label class="button primary file-button">导入录音<input id="mediaInput" type="file" accept="audio/*,video/*"></label>
+          <p id="mediaStatus" class="muted">尚未导入录音 · 时间轴待校准</p>
+          <video id="media" controls playsinline preload="metadata" hidden></video>
+        </div>
+      </details>
+      <article class="lesson-card">
+        <div class="card-top"><span id="sectionChip" class="chip">主歌</span><button id="openEditor" class="text-button">编辑本句</button></div>
+        <div id="koreanLine" class="korean-line" lang="ko">멀리서 널 보았을때</div>
+        <p class="instruction">点韩文字，查看初声、元音和收音</p>
+        <div id="jamoPanel" class="jamo-panel" hidden></div>
+        <section id="zhPanel" class="zh-panel"><span class="small-label">中文意思</span><p id="translation">当我远远看见你的时候。</p></section>
+        <div class="mastery"><span class="small-label">这句，我已经…</span><div id="masteryButtons"><button data-skill="read" aria-pressed="false">会读了</button><button data-skill="meaning" aria-pressed="false">懂意思</button><button data-skill="listen" aria-pressed="false">能听懂</button></div></div>
+        <div class="lesson-extra">
+          <details id="pronPanel" class="pron-panel" open><summary>发音提示</summary><p id="pronText">멀리서：ㄹ 的连接；널 是 너를 的缩略形式。</p><p id="pronNote" class="muted">标准读法学习提示，实际唱法待录音核对。</p></details>
+          <details class="explanation" open><summary>词语与句子结构</summary><div id="vocabList"></div><p id="grammar"></p><p id="contentStatus" class="muted"></p></details>
+          <details class="display-controls"><summary>显示选项</summary><div class="hint-controls"><label class="check"><input id="showPron" type="checkbox" checked>发音提示</label><label class="check"><input id="showZh" type="checkbox" checked>中文意思</label></div></details>
+        </div>
+      </article>
+      <section class="transport" aria-label="跟读播放器">
+        <div class="transport-meta"><div class="transport-caption"><p id="playbackStatus" role="status">导入录音后，可设置本句起止时间。</p><span id="settingsSummary">1.0× · 3 次 · 留白 3 秒</span></div><button id="openPlaybackSettings" aria-label="跟读设置">设置</button></div>
+        <div class="transport-buttons"><button id="prevLine" aria-label="上一句">上一句</button><button id="playLine" class="primary play">播放本句</button><button id="nextLine" aria-label="下一句">下一句</button></div>
+      </section>
+      <footer class="footnote">讲解为学习初稿，可编辑。录音和进度留在本机；请定期导出备份。<span id="offlineStatus"></span></footer>
+    </section>
+  </main>
+  <dialog id="playbackSettingsDialog">
+    <div class="dialog-head"><h2>跟读设置</h2><button data-close="playbackSettingsDialog">关闭</button></div>
+    <div class="play-settings"><label>速度<select id="speed"><option value="0.65">0.65×</option><option value="0.8">0.8×</option><option value="1" selected>1.0×</option></select></label><label>循环<select id="repeats"><option value="1">1 次</option><option value="3" selected>3 次</option><option value="5">5 次</option><option value="0">一直循环</option></select></label><label>跟读留白<select id="gap"><option value="0">不留白</option><option value="2">2 秒</option><option value="3" selected>3 秒</option><option value="5">5 秒</option></select></label></div>
+    <p class="muted">“完整听”连续播放整首；循环与跟读留白用于“逐句学”。</p>
+    <button id="openTiming" class="wide-button">校准本句时间</button>
+  </dialog>
+  <dialog id="libraryDialog">
+    <div class="dialog-head"><h2>课程与备份</h2><button data-close="libraryDialog" aria-label="关闭">关闭</button></div>
+    <div id="courseList"></div>
+    <details class="dialog-detail"><summary>课程说明与时间状态</summary><p id="courseNotes" class="muted"></p></details>
+    <h3>迁移与备份</h3><p class="muted">含录音课程包恢复课程和音频；学习进度需单独导出、合并。</p>
+    <div class="button-grid"><label class="button file-button">导入课程 / 课程包<input id="courseInput" type="file" accept=".json,application/json"></label><button id="exportBundle">导出含录音课程包</button><button id="exportProgress">导出进度</button><label class="button file-button">合并进度<input id="progressInput" type="file" accept=".json,application/json"></label></div>
+    <details class="dialog-detail"><summary>仅导出课程资料</summary><p class="muted">不含录音或学习进度；迁移时需另行保留。</p><button id="exportCourse" class="wide-button">导出课程</button></details>
+    <details id="timingUpdateTools" class="dialog-detail"><summary>更新 Live 时间</summary><p class="muted">先导出更新前课程备份，再更新非手动时间；手动时间、笔记、录音和进度保留。新时间仍需试听核对。</p><div class="stack-buttons"><button id="applyLiveRefined" hidden>试用优化自动时间（保留手动设置）</button><button id="applyLiveLrc" hidden>更新 Live LRC 时间（保留手动设置）</button></div></details>
+    <details class="dialog-detail"><summary>离线与本机存储</summary><p id="storageInfo">正在读取存储状态…</p><button id="persistStorage">申请保留本机数据</button></details>
+    <details class="dialog-detail"><summary>使用说明与主屏幕入口</summary><ol><li>导入含录音课程包，或对应版本的音频或视频。</li><li>播放本句、循环跟读，按实际情况记录掌握程度。</li><li>时间有偏差时，在播放器“设置”中选择“校准本句时间”。</li></ol><p class="muted">安卓浏览器菜单可选择“安装应用”或“添加到主屏幕”。首次联网后检查离线状态。清除浏览器数据会删除本机资料。</p><p><a href="https://music.bugs.co.kr/track/57151" target="_blank" rel="noopener noreferrer">歌曲资料</a> · <a href="https://krdict.korean.go.kr/chn/mainAction" target="_blank" rel="noopener noreferrer">韩国语基础词典</a></p></details>
+  </dialog>
+  <dialog id="editorDialog">
+    <form id="editorForm"><div class="dialog-head"><h2>编辑本句</h2><button type="button" data-close="editorDialog">关闭</button></div><p class="muted">同一歌词的讲解会同步到重复句；时间点分别设置。</p><label>韩文原文<textarea id="editKorean" required maxlength="1000"></textarea></label><label>中文意思<textarea id="editZh" maxlength="3000"></textarea></label><label>发音提示<textarea id="editPron" maxlength="3000"></textarea></label><label>句子结构<textarea id="editGrammar" maxlength="5000"></textarea></label><label>词语说明（每行：词语 | 中文解释）<textarea id="editVocab" rows="5" maxlength="10000"></textarea></label><label class="check"><input id="editReviewed" type="checkbox">这句讲解我已核对</label><button class="primary wide-button" type="submit">保存讲解</button></form>
+  </dialog>
+  <dialog id="timingDialog">
+    <div class="dialog-head"><h2>校准播放时间</h2><button data-close="timingDialog">关闭</button></div><p id="timingLyric" lang="ko"></p><p class="muted">播放录音，在句子开始和结束时分别标记；也可直接填写秒数。</p>
+    <div class="timing-preview"><button id="timingToggle">播放 / 暂停</button><span id="timingClock">00:00.0</span><label>定位录音<input id="timingSeek" type="range" min="0" max="1" step="0.05" value="0"></label></div>
+    <form id="timingForm"><div class="time-fields"><label>开始（秒）<input id="startTime" type="number" min="0" step="0.01" required><button id="captureStart" type="button">用当前时间</button></label><label>结束（秒）<input id="endTime" type="number" min="0" step="0.01" required><button id="captureEnd" type="button">用当前时间</button></label></div><button type="submit" class="primary wide-button">保存本句时间</button></form>
+    <details class="dialog-detail"><summary>导入整首字幕时间</summary><p>支持匹配的 SRT 或 LRC。先核对句数和文字，再替换整首时间；包括已有手动时间。LRC 句尾估算，最后一行延续至录音结束，导入后仍需试听核对。</p><label class="button file-button">选择 SRT / LRC<input id="subtitleInput" type="file" accept=".srt,.lrc,text/plain"></label></details>
+  </dialog>
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
