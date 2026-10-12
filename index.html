@@ -53,10 +53,12 @@
         <div id="jamoPanel" class="jamo-panel" hidden></div>
         <section id="zhPanel" class="zh-panel"><span class="small-label">中文意思</span><p id="translation">当我远远看见你的时候。</p></section>
         <div class="mastery"><span class="small-label">这句，我已经…</span><div id="masteryButtons"><button data-skill="read" aria-pressed="false">会读了</button><button data-skill="meaning" aria-pressed="false">懂意思</button><button data-skill="listen" aria-pressed="false">能听懂</button></div></div>
+        <div class="lesson-extra">
+          <details class="explanation" open><summary>词语与句子结构</summary><div id="vocabList"></div><p id="grammar"></p><div id="grammarFocus" class="grammar-focus"></div><details class="training-sources"><summary>学习资料与说明</summary><p class="muted">句型拆解与练习为学习初稿，例句为另写的迁移例句；歌词解释仍需结合上下文核对。原句回忆按课程文本核对，不能代替韩语表达能力或发音评估。联网时可在以下词典继续查词、核对用法。</p><div id="trainingReferences"></div></details><p id="contentStatus" class="muted"></p></details>
+        </div>
         <details id="trainingPanel" class="training-panel"><summary>词汇 · 语法 · 整句训练 <span id="practiceSummary"></span></summary><p class="muted">先回忆，再核对；用过提示或看过答案的题留待复练。</p><div class="training-actions"><button data-training="vocab">练词汇</button><button data-training="grammar">练语法</button><button data-training="sentence">练整句</button></div><div class="training-review"><span id="practiceCourseStats" class="muted"></span><button data-training="review">复练错题（<span id="practiceAgainCount">0</span>）</button></div></details>
         <div class="lesson-extra">
           <details id="pronPanel" class="pron-panel" open><summary>发音提示</summary><p id="pronText">멀리서：ㄹ 的连接；널 是 너를 的缩略形式。</p><p id="pronNote" class="muted">标准读法学习提示，实际唱法待录音核对。</p></details>
-          <details class="explanation" open><summary>词语与句子结构</summary><div id="vocabList"></div><p id="grammar"></p><div id="grammarFocus" class="grammar-focus"></div><details class="training-sources"><summary>学习资料与说明</summary><p class="muted">句型拆解与练习为学习初稿，例句为另写的迁移例句；歌词解释仍需结合上下文核对。原句回忆按课程文本核对，不能代替韩语表达能力或发音评估。联网时可在以下词典继续查词、核对用法。</p><div id="trainingReferences"></div></details><p id="contentStatus" class="muted"></p></details>
           <details class="display-controls"><summary>显示选项</summary><div class="hint-controls"><label class="check"><input id="showPron" type="checkbox" checked>发音提示</label><label class="check"><input id="showZh" type="checkbox" checked>中文意思</label></div></details>
         </div>
       </article>
